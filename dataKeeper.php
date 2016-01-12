@@ -15,64 +15,73 @@
 		
 	}
 	
-	orderFood();
-	/*if(isset($_GET["delete"])){
-		echo "kustutame id ".$_GET["delete"];
-		deleteCar($_GET["delete"]);
+	$telli = "";
+	$amount= "";
+	$food_array = orderFood($telli, $amount);
+	
+	/*if(isset($_GET["telli_id"])){
+		
+		$telli = $_GET["telli_id"];
+		
+	}*/
+	
+	if(isset($_GET["telli_id"]) && isset($_GET["amount"])){
+		
+		$amount = $_GET["amount"];
+		$telli = $_GET["telli_id"];
+		
+		orderFood($telli, $amount);
+		
+		header("Location: dataKeeper.php?telli_id=");
+		
 	}
 	
-	if(isset($_POST["save"])){
-		updateCar($_POST["id"], $_POST["plate_number"], $_POST["color"]);
-	}
-	
-	$car_array = getCarData();
-	*/
-	//echo $car_array[0]->id." ".$car_array[0]->plate;
 ?>
 <p>Tere <?=$_SESSION["logged_in_user"];?>. <a href="?logout=1">Logi välja</a></p>
-<!--<h2>Tabel</h2>
+<p><a href="dataPeasant.php">Suundu</a> töötajate tabeli lehele.</p>
+<h2>Toiduained mida tarvis tellida.</h2>
 <table border="1">
-	<tr>
-		<th>id</th>
-		<th>user id</th>
-		<th>number plate</th>
-		<th>color</th>
-		<th>DELETE</th>
-		<th>edit</th>
-	</tr>
+	<?php
 
-	<?php/*
-	
-		for($i = 0; $i < count($car_array); $i=$i+1){
+	if(!empty($food_array)){
 			
-			if(isset($_GET["edit"]) && $car_array[$i]->id == $_GET["edit"]){
+		echo "<tr>";
+		echo "<th>Id</th>";
+		echo "<th>Toiduaine</th>";
+		echo "<th>Lao kogus</th>";
+		echo "<th>Vähim kogus</th>";
+		echo "<th>Vajadus</th>";
+		echo "<th>Telli juurde</th>";
+		echo "</tr>";
+		
+		
+		for($i = 0; $i < count($food_array); $i=$i+1){
 				
-				echo "<tr>";
-				echo "<form action='table.php' method='post'>";
-				echo "<input type='hidden' name='id' value='".$car_array[$i]->id."'>";
-				echo "<td>".$car_array[$i]->id."</td>";
-				echo "<td>".$car_array[$i]->user."</td>";
-				echo "<td><input name='plate_number' value='".$car_array[$i]->plate."'></td>";
-				echo "<td><input name='color' value='".$car_array[$i]->color."'></td>";
-				echo "<td><a href='table.php'>cancel</a></td>";
-				echo "<td><input type='submit' name='save' value='save'></td>";
-				echo "</form>";
-				echo "</tr>";
+			echo "<tr>";
+			echo "<td>".$food_array[$i]->id."</td>";
+			echo "<td>".$food_array[$i]->food."</td>";
+			echo "<td>".$food_array[$i]->amount."</td>";
+			echo "<td>".$food_array[$i]->amount_min."</td>";
+			echo "<td>".$food_array[$i]->need."</td>";
+			echo "<td><a href='dataKeeper.php?telli_id=".$food_array[$i]->id."'>Telli</a></td>";
+			echo "</tr>";
 				
-			}else{
-				
-				echo "<tr>";
-				echo "<td>".$car_array[$i]->id."</td>";
-				echo "<td>".$car_array[$i]->user."</td>";
-				echo "<td>".$car_array[$i]->plate."</td>";
-				echo "<td>".$car_array[$i]->color."</td>";
-				echo "<td><a href='?delete=".$car_array[$i]->id."'>X</a></td>";
-				echo "<td><a href='?edit=".$car_array[$i]->id."'>edit</a></td>";
-				echo "</tr>";
-				
-			}
 		}
-	
+		
+		if(!empty($_GET["telli_id"])){
+			
+			echo "<form method='get'>";
+			echo "<input type='hidden' name='telli_id' value=".$_GET["telli_id"].">";
+			echo "<input type='text' name='amount' placeholder='Toidu ühikuid'>";
+			echo "<input type='submit' name='submit' value='Toiduaine nr".$_GET["telli_id"]."'>";
+			echo "</form>";
+			
+		}
+		
+	}else{
+		
+		echo "Kõiki aineid on piisavas koguses!";
+		
+	}	
 	?>
-
-</table>-->
+</table>

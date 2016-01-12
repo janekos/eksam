@@ -3,7 +3,7 @@
 	require_once("functions.php");
 	
 	if(isset($_SESSION["logged_in_user_id"])){
-		header("Location: data.php");
+		header("Location: dataKeeper.php?telli_id=");
 	}
 
   // muuutujad errorite jaoks
@@ -96,6 +96,7 @@
   <title>Login</title>
 </head>
 <body>
+<p><a href="index.html">Tagasi</a> pealehele.<p>
 
   <h2>Log in</h2>
   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" >
@@ -110,7 +111,5 @@
   	<input name="create_password" type="password" placeholder="Parool"> <?php echo $create_password_error; ?> <br><br>
   	<input type="submit" name="create" value="Create user">
   </form>
-  <br>
-  <p><a href="dataPeasant.php">Sisene</a> külastajana.</p>
 </body>
 </html>
