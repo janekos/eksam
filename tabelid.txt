@@ -1,0 +1,12 @@
+create table v_ladu(
+id int not null auto_increment primary key,
+food varchar(100),
+amount int,
+amount_min int
+);
+
+create table v_user(
+id int not null auto_increment primary key,
+user varchar(30),
+password varchar(30)
+);
